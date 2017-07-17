@@ -4,3 +4,4 @@
 /dist
 test-results.xml
 *.log
+.vscode
