@@ -1,0 +1,8 @@
+{
+  "author": "Dan Rigsby &lt;danrigsby@gmail.com&gt;",
+  "description": "Easy to follow side effect library for redux reducers",
+  "displayName": "Redux Reducer Side Effects",
+  "name": "redux-reducer-side-effects",
+  "org": "danrigsby",
+  "timestamp": "2017-07-17T18:02:17.429Z"
+}

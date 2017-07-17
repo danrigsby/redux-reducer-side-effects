@@ -1,0 +1,37 @@
+{
+  "name": "redux-reducer-side-effects",
+  "version": "1.0.0",
+  "description": "Easy to follow side effect library for redux reducers",
+  "main": "lib/index.js",
+  "files": [
+    "/lib"
+  ],
+  "repository": "https://github.com/danrigsby/redux-reducer-side-effects",
+  "author": "Dan Rigsby &lt;danrigsby@gmail.com&gt;",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+    "start": "npm run lint:fix && npm run build",
+    "build": "rimraf lib && babel src --out-dir lib --copy-files --ignore __test__",
+    "lint:fix": "npm run lint -- --fix",
+    "lint": "eslint src",
+    "test": "mocha \"src/**/*.test.js\" --compilers js:babel-core/register",
+    "test:watch": "npm run test -- --watch"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-stage-1": "^6.24.1",
+    "chai": "^4.0.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.1.0",
+    "mocha": "^3.4.2",
+    "mocha-circleci-reporter": "^0.0.2",
+    "reporter": "^0.1.0",
+    "rimraf": "^2.6.1"
+  }
+}
