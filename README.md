@@ -39,11 +39,60 @@ yarn add redux-reducer-side-effects --dev
 ```
 
 ## Usage
-### 1. Wire up the Middleware
-_TODO_
-### 2. Add to Reducers
-_TODO_
+### 1. Wire up the [Middleware](http://redux.js.org/docs/advanced/Middleware.html)
+Simply add the [middleware](http://redux.js.org/docs/advanced/Middleware.html) when you create your redux store.
 
+``` javascript
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import addSideEffectMiddleware from 'redux-reducer-side-effects';
+import reducers from './reducers';
+
+export default function configureStore() {
+  const enhancers = compose(
+    applyMiddleware(
+      addSideEffectMiddleware()
+    )
+  );
+
+  return createStore(reducers, {}, enhancers);
+}
+```
+
+Optionally, the `addSideEffectMiddlware` can take in an options object that defines:
+1. `timeout`: The default timeout in milliseconds for all side effects (defaults to 0 or no timeout)
+
+``` javascript
+  applyMiddleware(
+    addSideEffectMiddleware({ timeout: 1000 }) // 1 second
+  )
+```
+### 2. Add to Reducers
+
+The `addSideEffectMiddlware` adds a new method on the redux reducer `action` called: `addSideEffect`.  
+This method takes in a function that is passed the entire redux `store`.  This allows the side effect to `getState()` or `dispatch` new actions onto the store.
+
+``` javascript
+action.addSideEffect((store) => {
+  // Your side effect goes here such as:
+  store.dispatch.newAction(action.myNewAction(store.getState().myData));
+});
+```
+
+Optionally you can also pass in an object to `addSideEffect` that defines two properties:
+1. `effect`: the side effect function as defined above
+2. `timeout`: a timeout in milliseconds to wrap around the `effect` function call
+
+``` javascript
+action.addSideEffect({
+  effect: (store) => {
+    // Your side effect goes here such as:
+    store.dispatch.newAction(action.myNewAction(store.getState().myData));
+  }
+  timeout: 1000 // 1 second
+});
+```
+
+#### Options
 #### Example Reducer
 ``` javascript
 export default (state, action) => {
@@ -52,8 +101,8 @@ export default (state, action) => {
       const newState = // Perform what ever you need to do here to get your new state
 
       action.addSideEffect((store) => {
-        // Your side effect goes here
-        store.dispatch.newAction(action.myNewAction());
+        // Your side effect goes here such as:
+        store.dispatch.newAction(action.myNewAction(store.getState().myData));
       });
 
       // Can add more side effects on action.addSideEffect
