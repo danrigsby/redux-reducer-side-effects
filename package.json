@@ -1,6 +1,6 @@
 {
   "name": "redux-reducer-side-effects",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Easy to follow side effect library for redux reducers",
   "main": "lib/index.js",
   "files": [
@@ -33,5 +33,8 @@
     "mocha-circleci-reporter": "^0.0.2",
     "reporter": "^0.1.0",
     "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1"
   }
 }
