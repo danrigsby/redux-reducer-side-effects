@@ -14,7 +14,20 @@
   </a>
 </p>
 
-Easy to follow side effect library for redux reducers
+Easy to follow side effect library for redux reducers.
+
+## Background
+### What is a [Side Effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science))?
+Anything that modifies some state outside its scope or has an observable interaction with its calling functions or the outside world beyond returning a value.
+
+In redux, this means if your reducer does anything beyond just returning the new state for that reducer, its a side effect and needs to be handeld as such.
+
+### Why are Side Effect Harmful?
+_TODO_
+### Why does this work?
+_TODO_
+### What does this library do for me?
+_TODO_
 
 ## Installation
 ``` sh
@@ -25,8 +38,33 @@ npm install redux-reducer-side-effects --save
 yarn add redux-reducer-side-effects --dev
 ```
 
+## Usage
+### 1. Wire up the Middleware
+_TODO_
+### 2. Add to Reducers
+_TODO_
 
-## Configuration
+#### Example Reducer
+``` javascript
+export default (state, action) => {
+  switch (action.type) {
+    case: 'MY_ACTION': {
+      const newState = // Perform what ever you need to do here to get your new state
+
+      action.addSideEffect((store) => {
+        // Your side effect goes here
+        store.dispatch.newAction(action.myNewAction());
+      });
+
+      // Can add more side effects on action.addSideEffect
+
+      return newState;
+    }
+    default: {
+      return state
+    }
+  }
+}
 
 ## License
 `redux-reducer-side-effects` is licensed under the [MIT License](LICENSE).
