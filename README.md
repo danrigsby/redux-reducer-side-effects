@@ -20,15 +20,39 @@ Easy to follow side effect library for redux reducers.
 ### What is a [Side Effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science))?
 Anything that modifies some state outside its scope or has an observable interaction with its calling functions or the outside world beyond returning a value.
 
-In redux, this means if your reducer does anything beyond just returning the new state for that reducer, its a side effect and needs to be handeld as such.
+In redux, this means if your reducer does anything beyond just returning the new state for that reducer, its a side effect and needs to be handled as such.
 
-### Why are Side Effect Harmful?
-_TODO_
-### Why does this work?
-_TODO_
+However, often reducers will need to perform some kind of side effect. In these situations, you want to perform these
+side effects "outside" of the reducer. For instance:
+1. Inside of a reducer you may want to have the completion of some operation dispatch another operatop on the store.
+2. Reducers should not know about one another direct, but may listen for well known actions between them. 
+
 ### What does this library do for me?
-_TODO_
+There are a few different side effect libraries out there, but many do more than you need or are hard to follow. Primary goal of this library is to introduce safe side effects in a powerful way, but be simple to read, understand, and implement.
 
+For instance, say you have two reducers, one for login (loginReducer) and the other for content (contentReducer).  When a user logs in, you want to retrieve content, and when the user logs out, you want to remove the content.
+
+```javascript
+export default function contentReducer(state, action) {
+  switch (action.type) {
+    case: 'LOGIN': {
+      action.addSideEffect((store) => {
+        store.dispatch.getContent();
+      });
+      return state;
+    }
+    case: 'LOGOUT': {
+      action.addSideEffect((store) => {
+        store.dispatch.clearContent();
+      });
+      return state;
+    }
+    default: {
+      return state
+    }
+  }
+}
+```
 ## Installation
 ``` sh
 # npm
@@ -40,7 +64,7 @@ yarn add redux-reducer-side-effects --dev
 
 ## Usage
 ### 1. Wire up the [Middleware](http://redux.js.org/docs/advanced/Middleware.html)
-Simply add the [middleware](http://redux.js.org/docs/advanced/Middleware.html) when you create your redux store.
+Simply add the [middleware](http://redux.js.org/docs/advanced/Middleware.html) when you create your redux [store](http://redux.js.org/docs/basics/Store.html).
 
 ``` javascript
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
@@ -67,7 +91,6 @@ Optionally, the `addSideEffectMiddlware` can take in an options object that defi
   )
 ```
 ### 2. Add to Reducers
-
 The `addSideEffectMiddlware` adds a new method on the redux reducer `action` called: `addSideEffect`.  
 This method takes in a function that is passed the entire redux `store`.  This allows the side effect to `getState()` or `dispatch` new actions onto the store.
 
@@ -92,7 +115,6 @@ action.addSideEffect({
 });
 ```
 
-#### Options
 #### Example Reducer
 ``` javascript
 export default (state, action) => {
@@ -114,6 +136,13 @@ export default (state, action) => {
     }
   }
 }
+```
+
+### 3. (Optional) Get Information About Side Effects
+The `addSideEffectMiddlware` adds a second new method on the redux reducer `action` called: `sideEffectInfo`.  
+This method returns an object containing information about sideEffects:
+1. `count`: the current number of side effects that will be executed.  this may be useful for testing or other operations
+2. `options`: the original options passed into `addSideEffectMiddlware`. you may use this to look at the default `timeout` or to pass data from the middleware down to sideEffects
 
 ## License
 `redux-reducer-side-effects` is licensed under the [MIT License](LICENSE).

@@ -12,6 +12,7 @@ const addSideEffectMiddleware = (options = { timeout: 0 }) =>
 
       // If any side effects were defined in a reducer, then run each one
       while (sideEffects.length > 0) {
+        // Pop off each side effect and execute them in rough ordering
         const item = sideEffects.shift();
 
         // If item is a function, then create side effect object
