@@ -1,6 +1,6 @@
 {
   "name": "redux-reducer-side-effects",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Easy to follow side effect library for redux reducers",
   "main": "lib/index.js",
   "files": [
