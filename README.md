@@ -14,7 +14,7 @@
   </a>
 </p>
 
-Easy to follow side effect library for redux reducers.
+Easy to follow side effect library for redux reducers
 
 ## Background
 ### What is a [Side Effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science))?
@@ -59,7 +59,7 @@ export default function contentReducer(state, action) {
 npm install redux-reducer-side-effects --save
 
 # yarn
-yarn add redux-reducer-side-effects --dev
+yarn add redux-reducer-side-effects
 ```
 
 ## Usage
