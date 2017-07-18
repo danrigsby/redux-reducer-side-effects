@@ -82,7 +82,7 @@ export default function configureStore() {
 }
 ```
 
-Optionally, the `addSideEffectMiddlware` can take in an options object that defines:
+Optionally, the `addSideEffectMiddleware` can take in an options object that defines:
 1. `timeout`: The default timeout in milliseconds for all side effects (defaults to 0 or no timeout)
 
 ``` javascript
@@ -91,7 +91,7 @@ Optionally, the `addSideEffectMiddlware` can take in an options object that defi
   )
 ```
 ### 2. Add to Reducers
-The `addSideEffectMiddlware` adds a new method on the redux reducer `action` called: `addSideEffect`.  
+The `addSideEffectMiddleware` adds a new method on the redux reducer `action` called: `addSideEffect`.  
 This method takes in a function that is passed the entire redux `store`.  This allows the side effect to `getState()` or `dispatch` new actions onto the store.
 
 ``` javascript
@@ -139,10 +139,10 @@ export default (state, action) => {
 ```
 
 ### 3. (Optional) Get Information About Side Effects
-The `addSideEffectMiddlware` adds a second new method on the redux reducer `action` called: `sideEffectInfo`.  
+The `addSideEffectMiddleware` adds a second new method on the redux reducer `action` called: `sideEffectInfo`.  
 This method returns an object containing information about sideEffects:
 1. `count`: the current number of side effects that will be executed.  this may be useful for testing or other operations
-2. `options`: the original options passed into `addSideEffectMiddlware`. you may use this to look at the default `timeout` or to pass data from the middleware down to sideEffects
+2. `options`: the original options passed into `addSideEffectMiddleware`. you may use this to look at the default `timeout` or to pass data from the middleware down to sideEffects
 
 ## License
 `redux-reducer-side-effects` is licensed under the [MIT License](LICENSE).
